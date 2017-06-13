@@ -1,0 +1,49 @@
+<include file="Public/header"/>
+<head/>
+<body>
+<div class="wrap J_check_wrap">
+  <ul class="nav nav-tabs">
+     <?php if(is_role('rbac','index')) { ?><li class="active"><a href="{:U('rbac/index')}">角色管理</a></li><?php } ?>
+     <?php if(is_role('rbac','roleadd')) { ?><li><a href="{:U('rbac/roleadd')}">添加角色</a></li><?php } ?>
+  </ul>
+  <div class="table_list">
+  <form name="myform" action="{:U('Rbac/listorders')}" method="post">
+    <table width="100%" cellspacing="0" class="table table-hover">
+      <thead>
+        <tr>
+          <th width="30">ID</th>
+          <th align="left" >角色名称</th>
+          <th align="left" >角色描述</th>
+          <th width="40" align="left" >状态</th>
+          <th width="200">管理操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <foreach name="roles" item="vo">
+        <tr>
+          <td>{$vo.id}</td>
+          <td>{$vo.name}</td>
+          <td>{$vo.remark}</td>
+          <td>
+          <if condition="$vo['status'] eq 1"> 
+          <font color="red">√</font>
+          <else />
+          <font color="red">╳</font>
+          </if>
+          </td>
+          <td  class="text-c">
+			<?php if(is_role('rbac','authorize')) { ?><a href="{:U('Rbac/authorize',array('id'=>$vo['id']))}">权限设置</a>  | <?php } ?>
+                        <?php if(is_role('rbac','member')) { ?><a href="javascript:open_iframe_dialog('{:U('rbac/member',array('id'=>$vo['id']))}','成员管理');">成员管理</a>| <?php } ?>
+                        <?php if(is_role('rbac','roleedit')) { ?><a href="{:U('Rbac/roleedit',array('id'=>$vo['id']))}">修改</a> | <?php } ?>
+                        <?php if(is_role('rbac','roledelete')) { ?><a class="J_ajax_del" href="{:U('Rbac/roledelete',array('id'=>$vo['id']))}">删除</a><?php } ?>
+          </td>
+        </tr>
+        </foreach>
+      </tbody>
+    </table>
+  </form>
+  </div>
+</div>
+<load href="__PUBLICS__/js/common.js"/>
+</body>
+</html>

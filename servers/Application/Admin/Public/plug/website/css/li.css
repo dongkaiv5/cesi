@@ -1,0 +1,23 @@
+
+/*cursor: move;*/ 
+/*absolute; */ 
+/*border:5px solid #CCCCCC;*/  
+.div_head , .div_body , .div_footer {
+	position:relative;
+	outline:1px dashed #339966;
+}
+
+/*
+.div_add {
+	width: 10px; height: 10px; overflow: hidden; cursor: pointer; position: absolute; background-color: #009900; z-index: 99;
+}
+.div_edit_app {
+	width: 10px; height: 10px; overflow: hidden; cursor: pointer; position: absolute; background-color: #CC9900; right: 0;z-index: 99; 
+}
+.div_del {
+	width: 10px; height: 10px; overflow: hidden; cursor: pointer; position: absolute; background-color: #FF0000; bottom: 0; z-index: 99;
+}
+.div_edit {
+	width: 10px; height: 10px; overflow: hidden; cursor: pointer; position: absolute; background-color: #0000CC; right: 0; bottom: 0; z-index: 99;
+}
+*/

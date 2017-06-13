@@ -1,0 +1,23 @@
+   <table cellspacing="0" style="width:300px; float:left" class="table table-hover"><tbody>
+        <volist name="org_info" id="vo" mod="2">
+            <eq name="mod" value="1"><tr><td>{$vo.name}</td><td><input type="checkbox"  onClick="check('{$vo.name}','{$vo.id}');" id="{$vo.id}" class="checkbox"></td></tr></eq>
+            </volist>
+    </tbody>
+    </table>
+  <table cellspacing="0" style="width:300px; float:right" class="table table-hover">
+    <tbody>
+      <volist name="org_info" id="vo" mod="2">
+            <eq name="mod" value="0"><tr><td>{$vo.name}</td><td><input type="checkbox"  onClick="check('{$vo.name}','{$vo.id}');" id="{$vo.id}"  class="checkbox"></td></tr></eq>
+            </volist>
+    </tbody>  
+  </table> 
+<script>
+function check(name,id){
+
+$(".checkbox").attr("checked",false);
+$("#"+id).attr("checked",true);
+$("#org_name_text").val(name);
+$("#org_id_hidden").val(id);
+};
+
+</script>

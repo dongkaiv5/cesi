@@ -1,0 +1,42 @@
+.fl{float: left;}
+.fr{float: right;}
+.clearfix:before,.clearfix:after {content:"";display:table;}
+.clearfix:after{clear:both;}
+.clearfix{*zoom:1;/*IE/7/6*/}
+li{list-style: none;}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .inner_btm{
+    padding: 0 20px;
+}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .inner_message_box{
+    border-top: 1px solid #e8eced;
+    padding:20px 0;
+}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .message_pic{
+    margin-right: 10px;
+}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .message_pic img{
+    width: 56px;
+    height: 56px;
+}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .message_box_txt{
+    width:90%;
+    margin-bottom: 10px;
+}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .message_date{
+    color: #808080;
+}
+.b2b2c_after_service_all .b2b2c_after_service_content_inner .message_box_txt p{
+    margin-top: 5px;
+}
+.b2b2c_after_service_all .b2b2c_message_box_img{
+    margin-left:66px;
+}
+.b2b2c_after_service_all .b2b2c_message_box_img li{
+    float: left;
+    margin-right: 10px;
+}
+.b2b2c_after_service_all .b2b2c_message_box_img li img{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #e1e5e6;
+}

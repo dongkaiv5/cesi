@@ -1,0 +1,169 @@
+
+<script type="text/javascript">
+  var tclass_level_one = "<?php echo $tclass_level_one?>";
+  var tclass_level_two = "<?php echo $tclass_level_two?>";
+  var tclass_level_three = "<?php echo $tclass_level_three?>";
+  var tclass_level_four = "<?php echo $tclass_level_four?>";
+  var loading = false;
+  function hide_level_two(){
+    tclass_level_two = 0;
+    $('#tclass_level_two').val(0);
+    $('#tclass_level_two').hide();
+  }
+
+  function hide_level_three(){
+    tclass_level_three = 0;
+    $('#tclass_level_three').val(0);
+    $('#tclass_level_three').hide();
+  }
+
+  function hide_level_four(){
+    tclass_level_four = 0;
+    $('#tclass_level_four').val(0);
+    $('#tclass_level_four').hide();
+  }
+
+  function show_level_two(){
+    $('#tclass_level_two').show();
+  }
+
+  function show_level_three(){
+    $('#tclass_level_three').show();
+  }
+
+  function show_level_four(){
+    $('#tclass_level_four').show();
+  }
+
+  function reload_level_two(tclass_id){
+      if(tclass_id == 0){
+        hide_level_two();
+        hide_level_three();
+        hide_level_four();
+        return;
+      }else{
+        if(!loading){
+          hide_level_two();
+          hide_level_three();
+          hide_level_four();
+        }
+      }
+
+      $.ajax({
+        type : 'GET',
+        url:'__MODULE__/'+'Tclass/get_tclass_selection', 
+        data : {
+          'id' : tclass_id,
+        },
+        dataType : 'json',
+        async:false,
+        success : function(data){
+          $('#tclass_level_three').empty();
+
+          $('#tclass_level_two').empty();
+          $('#tclass_level_two').append("<option value>请选择</option>");
+          $.each(data, function(n,value){
+            if(value.id == tclass_level_two){
+              $('#tclass_level_two').append("<option selected='selected' value='"+value.id+"'>"+value.name+"</option>");
+            }else{
+              $('#tclass_level_two').append("<option value='"+value.id+"'>"+value.name+"</option>");
+            }
+          });
+          show_level_two();
+          if(tclass_level_two > 0){
+            
+            reload_level_three(tclass_level_two);
+          }else{
+
+          }
+        },
+        error : function(request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });  
+  }
+
+  function reload_level_three(tclass_id){
+      if(tclass_id == 0){
+        hide_level_three();
+        hide_level_four();
+        return;
+      }else{
+        if(!loading){
+          hide_level_three();
+          hide_level_four();
+        }
+      }
+      $.ajax({
+        type : 'GET',
+        url:'__MODULE__/'+'Tclass/get_tclass_selection', 
+        data : {
+          'id' : tclass_id,
+        },
+        dataType : 'json',
+        async:false,
+        success : function(data){
+          $('#tclass_level_three').empty();
+          $('#tclass_level_three').append("<option value>请选择</option>");
+          $.each(data, function(n,value){
+            if(value.id == tclass_level_three){
+              $('#tclass_level_three').append("<option selected='selected' value='"+value.id+"'>"+value.name+"</option>");
+            }else{
+              $('#tclass_level_three').append("<option value='"+value.id+"'>"+value.name+"</option>");
+            }
+          });
+          show_level_three();
+          if(tclass_level_three > 0){
+            
+            reload_level_four(tclass_level_three);
+          }else{
+
+          }
+        },
+        error : function(request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });  
+  }
+
+  function reload_level_four(tclass_id){
+      if(tclass_id == 0){
+        hide_level_four();
+        return;
+      }
+      $.ajax({
+        type : 'GET',
+        url:'__MODULE__/'+'Tclass/get_tclass_selection', 
+        data : {
+          'id' : tclass_id,
+        },
+        dataType : 'json',
+        async:false,
+        success : function(data){
+
+          $('#tclass_level_four').empty();
+          if(data.length == 0){
+            return;
+          }
+          $('#tclass_level_four').append("<option value>请选择</option>");
+          $.each(data, function(n,value){
+            if(value.id == tclass_level_four){
+              $('#tclass_level_four').append("<option selected='selected' value='"+value.id+"'>"+value.name+"</option>");
+            }else{
+              $('#tclass_level_four').append("<option value='"+value.id+"'>"+value.name+"</option>");
+            }
+          });
+          show_level_four();
+        },
+        error : function(request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });  
+  }
+</script>

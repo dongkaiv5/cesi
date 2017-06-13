@@ -1,0 +1,109 @@
+
+<script type="text/javascript">
+  var goods_type_level_one = "<?php echo $goods_type_level_one?>";
+  var goods_type_level_two = "<?php echo $goods_type_level_two?>";
+  var goods_type_level_three = "<?php echo $goods_type_level_three?>";
+  var loading = false;
+  function hide_level_two(){
+    goods_type_level_two = 0;
+    $('#goods_type_level_two').val(0);
+    $('#goods_type_level_two').hide();
+  }
+
+  function hide_level_three(){
+    goods_type_level_three = 0;
+    $('#goods_type_level_three').val(0);
+    $('#goods_type_level_three').hide();
+  }
+
+  function show_level_two(){
+    $('#goods_type_level_two').show();
+  }
+
+  function show_level_three(){
+    $('#goods_type_level_three').show();
+  }
+
+  function reload_level_two(goods_type_id){
+      if(goods_type_id == 0){
+        hide_level_two();
+        hide_level_three();
+        return;
+      }else{
+        if(!loading){
+          hide_level_two();
+          hide_level_three();
+        }
+      }
+
+      $.ajax({
+        type : 'GET',
+        url:'__MODULE__/'+'B2b2c/get_goods_type_selection', 
+        data : {
+          'id' : goods_type_id,
+        },
+        dataType : 'json',
+        async:false,
+        success : function(data){
+          $('#goods_type_level_two').empty();
+          $('#goods_type_level_two').append("<option value>请选择</option>");
+          $.each(data, function(n,value){
+            if(value.id == goods_type_level_two){
+              $('#goods_type_level_two').append("<option selected='selected' value='"+value.id+"'>"+value.name+"</option>");
+            }else{
+              $('#goods_type_level_two').append("<option value='"+value.id+"'>"+value.name+"</option>");
+            }
+          });
+          show_level_two();
+          if(goods_type_level_two > 0){
+            
+            reload_level_three(goods_type_level_two);
+          }else{
+
+          }
+        },
+        error : function(request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });  
+  }
+
+  function reload_level_three(goods_type_id){
+      if(goods_type_id == 0){
+        hide_level_three();
+        return;
+      }else{
+        if(!loading){
+          hide_level_three();
+        }
+      }
+      $.ajax({
+        type : 'GET',
+        url:'__MODULE__/'+'B2b2c/get_goods_type_selection', 
+        data : {
+          'id' : goods_type_id,
+        },
+        dataType : 'json',
+        async:false,
+        success : function(data){
+          $('#goods_type_level_three').empty();
+          $('#goods_type_level_three').append("<option value>请选择</option>");
+          $.each(data, function(n,value){
+            if(value.id == goods_type_level_three){
+              $('#goods_type_level_three').append("<option selected='selected' value='"+value.id+"'>"+value.name+"</option>");
+            }else{
+              $('#goods_type_level_three').append("<option value='"+value.id+"'>"+value.name+"</option>");
+            }
+          });
+          show_level_three();
+        },
+        error : function(request, status, error){
+          console.log(request);
+          console.log(status);
+          console.log(error);
+        }
+      });  
+  }  
+</script>

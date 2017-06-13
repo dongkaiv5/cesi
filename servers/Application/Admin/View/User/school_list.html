@@ -1,0 +1,144 @@
+<style>
+
+.menu-search {
+  margin-bottom: 10px;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: hidden;
+      height: 400px;
+    overflow-y: auto;
+    width: 600px;
+}
+
+.menu li a {
+  display: block;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  font-size: 12px;
+  color: #444444;
+  margin: 0px;
+  line-height: 20px;
+  padding: 10px 5px 10px 5px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.menu li a:hover {
+  background: #CCFFFF;
+  text-decoration: none;
+}
+
+.menu li a .img {
+  float: left;
+  width: 120px;
+  height: 60px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.menu li a h4 {
+  padding: 0;
+  color: #444444;
+  font-size: 15px;
+  margin-left: 130px;
+}
+
+.menu li a p {
+  font-size: 12px;
+  color: #888888;
+  margin-left: 130px;
+}
+
+.menu li a:before,
+.menu li a:after {
+  display: table;
+  content: " ";
+}
+
+.menu li a:after {
+  clear: both;
+}
+
+</style>
+<div class="menu-search">
+  <input class="search" type="text" style="width:450px" placeholder="请输入关键字查询" id="school_name" value="">
+  <input type="button" style="margin-top: -10px;height:35px;" onclick="school_list_button();" value="搜索">
+</div>
+
+<ul class="menu">
+  <div id="school_name_list">
+  <foreach name="list" item="vo">
+  <li onclick="school_school_add({$vo.id},'{$vo.name}');">
+    <a href="#">
+      <div class="img">
+        <img width="120" height="60" alt="logo" src="" onload="javascript:DrawImage(this,120,60)" >
+      </div>
+      <h4>{$vo.name}</h4>
+      <p>{$vo.info}</p>
+    </a>
+  </li>
+  </foreach>
+  </div>
+</ul>
+
+<script>
+  
+  function school_school_add($school_id, $name) {
+    $('#school_name_text').val($name);
+    $('#school_id_hidden').val($school_id);
+    art.dialog({id: 'div_school_list'}).close();
+  }
+  
+  function school_list_button() {
+    var $school_name = $('#school_name').val();
+    $school_name = encodeURI($school_name);
+    $.get('__MODULE__/school/school_list', {'school_name' : $school_name}, function($e) {
+      if($e == null) {
+        $('#school_name_list').html("<div style='width:100%; height:400px; line-height:400px; text-align:center;'>暂无数据</div>");
+      } else {
+        var $htmls = '';
+        for(var $i=0; $i<$e.length; $i++) {
+          $htmls += '<li onclick="school_school_add('+$e[$i]['id']+',"'+$e[$i]['name']+'");">';
+            $htmls += '<a href="#">';
+              $htmls += '<div class="img">';
+                $htmls += '<img width="120" height="60" alt="logo" src="" onload="javascript:DrawImage(this,120,60)">';
+              $htmls += '</div>';
+              $htmls += '<h4>'+$e[$i]['name']+'</h4>';
+              $htmls += '<p>'+$e[$i]['info']+'</p>'; 
+            $htmls += '</a>';    
+          $htmls += '</li>';
+        }
+        $('#school_name_list').html($htmls);
+      }
+    }, 'json');
+  }
+
+  function DrawImage(ImgD,iwidth,iheight) {
+    var image=new Image();
+    image.src=ImgD.src;
+    if(image.width>0 && image.height>0){
+      if(image.width/image.height>= iwidth/iheight){
+        if(image.width>iwidth){
+            ImgD.width=iwidth;
+            ImgD.height=(image.height*iwidth)/image.width;
+        }else{
+            ImgD.width=image.width;
+            ImgD.height=image.height;
+        }
+      }else{
+        if(image.height>iheight){
+          ImgD.height=iheight;
+          ImgD.width=(image.width*iheight)/image.height;
+        }else{
+          ImgD.width=image.width;
+          ImgD.height=image.height;
+        }
+      }
+    }
+  }
+</script>
