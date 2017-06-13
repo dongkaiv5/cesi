@@ -9,7 +9,7 @@ class IndexController extends PrivateController {
 	
 	public function info() {
 	}
-public function day() {
+public function nihao() {
 echo "ok";
 	}
 }
